@@ -1,4 +1,4 @@
-const node = (data, left, right) => {
+const node = (data = null, left = null, right = null) => {
     return {
         data,
         left,
@@ -6,7 +6,7 @@ const node = (data, left, right) => {
     };
 }
 
-function mergeSort(arr) {
+const mergeSort = (arr) => {
     if (arr.length === 1) return arr;
     else {
         let newArr = []
@@ -26,20 +26,62 @@ function mergeSort(arr) {
 
         return newArr;
     }
-}
+};
+
+const prettyPrint = (node, prefix = "", isLeft = true) => {
+   if (node === null) {
+     return;
+   }
+   if (node.right !== null) {
+     prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+   }
+   console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+   if (node.left !== null) {
+     prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+   }
+ };
 
 const tree = (array) => {
+    const treeArray = mergeSort(array);
+
     function buildTree(array) {
-        return array;
+        let tree = node();
+
+        if (array.length === 1) {
+            let currentNode = node();
+            currentNode.data = array[0];
+            return tree.data = currentNode;
+        };
+        if (array.length === 2) {
+            let leftNode = node();
+            leftNode.data = array[0];
+            tree.data = array[1];
+            tree.left = leftNode;
+            return tree;
+        }
+        let mid = Math.floor((0 + array.length - 1) / 2);
+        tree.data = array[mid];
+        tree.left = buildTree(array.slice(0, mid));
+        tree.right = buildTree(array.slice(mid + 1, array.length));
+
+        return tree;
+    };
+
+    function insert(value) {
+        return value
     }
 
-    let root = buildTree(array);
+    let root = buildTree(treeArray);
 
     return {
-        root
+        root,
+        insert,
     }
 }
 
-let a = tree(1);
 
-console.log(a);
+
+let a = tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+
+prettyPrint(a.root);
+console.log(a.insert(1))
