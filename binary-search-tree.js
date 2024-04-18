@@ -67,31 +67,32 @@ const tree = (array) => {
         return tree;
     };
 
-    function insert(value) {
-        let currentNode = root;
-        return value
-    }
-
     let root = buildTree(treeArray);
 
     function insertRec(root, value) {
-        let newNode = node();
-        newNode.data = value;
-        
-        if (root.data > value && root.left === null) {
-            root.left = newNode;
-            return root;
-        };
-        if (root.data < value && root.right === null) {
-            root.right = newNode;
-            return root;
-        };
-        if (root.data > value) { insertRec(root.left, value) }
-        else { insertRec(root.right, value) };
+        if (root === null) {
+            return root = node(value);
+        }
+        if (root.data > value) { root.left = insertRec(root.left, value) }
+        else { root.right = insertRec(root.right, value) };
+
+        return root;
     };
 
     function insert(value) {
         return root = insertRec(root, value); 
+    }
+
+    function deleteItemRec(root, value) {
+        if (root.data === value) {
+            //2nd case
+            if (root.left && root.right === null) {
+
+            }
+        }
+
+        if (value < root.data) { root.left = deleteItemRec(root.left, value) }
+        else if (value > root.data) { root.right = deleteItemRec(root.right, value) };
     }
 
     return {
@@ -104,7 +105,7 @@ const tree = (array) => {
 
 let a = tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
-a.insert(2)
+console.log(a.insert(10));
 
 console.log(a.root)
 
