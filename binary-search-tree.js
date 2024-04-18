@@ -14,7 +14,8 @@ const mergeSort = (arr) => {
         let b = mergeSort(arr.slice(arr.length / 2, arr.length));
 
         if (a[0] === b[0]) {
-            newArr = [a[0]];
+            b = mergeSort([...a.slice(1, a.length), ...b.slice(1, b.length)]);
+            newArr = [a[0], ...b];
         }
         else if (a[0] < b[0]) {
             b = mergeSort([...a.slice(1, a.length), ...b]);
@@ -83,7 +84,6 @@ const tree = (array) => {
 
     function deleteItemRec(root, value) {
         if (root.data === value) {
-            //2nd case
             if (root.right === null) {
                 return root = root.left;
             }
@@ -115,10 +115,28 @@ const tree = (array) => {
         return deleteItemRec(root, value);
     };
 
+    function find(value) {
+        let qRoot = root;
+
+        while (qRoot.data !== value) {
+            if (value < qRoot.data) { qRoot = qRoot.left }
+            else if (value > qRoot.data) { qRoot = qRoot.right };
+            
+            if (qRoot === null) { return null };
+        }
+
+        return qRoot;
+    }
+
+    /* function find(value) {
+        return findRec(root, value);
+    } */
+
     return {
         root,
         insert,
-        deleteItem
+        deleteItem,
+        find
     }
 }
 
@@ -126,8 +144,14 @@ const tree = (array) => {
 
 let a = tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
+console.log(mergeSort([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]))
+
 console.log(a.insert(10));
 
 console.log(a.deleteItem(7))
+
+console.log(a.find(236));
+
+console.log(a.find(23));
 
 prettyPrint(a.root);
