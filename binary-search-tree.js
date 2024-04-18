@@ -84,18 +84,41 @@ const tree = (array) => {
     function deleteItemRec(root, value) {
         if (root.data === value) {
             //2nd case
-            if (root.left && root.right === null) {
-
+            if (root.right === null) {
+                return root = root.left;
             }
-        }
+            else if (root.left === null) {
+                return root = root.right;
+            };
+
+            if (root.right && root.left) {
+                let temp = root.right;
+
+                while (temp.left !== null) {
+                    temp = temp.left;
+                };
+                
+                root.data = temp.data;
+                temp = deleteItemRec(root.right, temp.data);
+
+                return root;
+            };
+        };
 
         if (value < root.data) { root.left = deleteItemRec(root.left, value) }
         else if (value > root.data) { root.right = deleteItemRec(root.right, value) };
-    }
+
+        return root;
+    };
+
+    function deleteItem(value) {
+        return deleteItemRec(root, value);
+    };
 
     return {
         root,
         insert,
+        deleteItem
     }
 }
 
@@ -105,6 +128,6 @@ let a = tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
 console.log(a.insert(10));
 
-console.log(a.root)
+console.log(a.deleteItem(7))
 
 prettyPrint(a.root);
