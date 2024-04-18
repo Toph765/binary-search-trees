@@ -48,13 +48,11 @@ const tree = (array) => {
         let tree = node();
 
         if (array.length === 1) {
-            let currentNode = node();
-            currentNode.data = array[0];
+            let currentNode = node(array[0]);
             return tree.data = currentNode;
         };
         if (array.length === 2) {
-            let leftNode = node();
-            leftNode.data = array[0];
+            let leftNode = node(array[0]);
             tree.data = array[1];
             tree.left = leftNode;
             return tree;
