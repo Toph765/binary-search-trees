@@ -158,13 +158,29 @@ const tree = (array) => {
         return preOrderRec(callback, root);
     };
 
+    function inOrderRec(callback, root, inOrderArray = []) {
+        if (root === null) return null;
+
+        inOrderRec(callback, root.left, inOrderArray);
+        inOrderArray.push(root.data);
+        inOrderRec(callback, root.right, inOrderArray);
+
+        if (callback && typeof callback === "function") callback(inOrderArray)
+        else return inOrderArray;
+    };
+
+    function inOrder(callback) {
+        return inOrderRec(callback, root);
+    };
+
     return {
         root,
         insert,
         deleteItem,
         find,
         levelOrder,
-        preOrder
+        preOrder,
+        inOrder,
     }
 }
 
@@ -187,3 +203,5 @@ prettyPrint(a.root);
 console.log(a.levelOrder());
 
 console.log(a.preOrder())
+
+console.log(a.inOrder());
