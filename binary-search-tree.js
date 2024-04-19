@@ -128,7 +128,7 @@ const tree = (array) => {
         return qRoot;
     };
 
-    function levelOrder(callback = null) {
+    function levelOrder(callback) {
         let queue = [root];
         let levelOrderArray = [];
 
@@ -139,7 +139,7 @@ const tree = (array) => {
             queue.shift();
         };
 
-        if (callback & typeof callback === "function") callback(levelOrderArray)
+        if (callback && typeof callback === "function") return callback(levelOrderArray)
         else return levelOrderArray;
     };
 
@@ -150,7 +150,7 @@ const tree = (array) => {
         preOrderRec(callback, root.left, preOrderArray);
         preOrderRec(callback, root.right, preOrderArray);
 
-        if (callback && typeof callback === "function") callback(preOrderArray)
+        if (callback && typeof callback === "function") return callback(preOrderArray)
         else return preOrderArray;
     };
 
@@ -165,7 +165,7 @@ const tree = (array) => {
         inOrderArray.push(root.data);
         inOrderRec(callback, root.right, inOrderArray);
 
-        if (callback && typeof callback === "function") callback(inOrderArray)
+        if (callback && typeof callback === "function") return callback(inOrderArray)
         else return inOrderArray;
     };
 
@@ -180,7 +180,7 @@ const tree = (array) => {
         postOrderRec(callback, root.right, postOrderArray);
         postOrderArray.push(root.data);
 
-        if (callback && typeof callback === "function") callback(postOrderArray)
+        if (callback && typeof callback === "function") return callback(postOrderArray)
         else return postOrderArray;
     };
 
@@ -247,7 +247,9 @@ const tree = (array) => {
     }
 }
 
-
+function thisIsArray(array) {
+    return 'this is array: ' + array;
+}
 
 let a = tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
@@ -269,7 +271,7 @@ console.log(a.preOrder())
 
 console.log(a.inOrder());
 
-console.log(a.postOrder());
+console.log(a.postOrder(thisIsArray));
 
 let b = a.find(8);
 
@@ -283,3 +285,4 @@ a.insert(11);
 a.insert(12);
 
 console.log(a.isBalanced());
+
