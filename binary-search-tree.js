@@ -220,6 +220,18 @@ const tree = (array) => {
         return count;
     }
 
+    function isBalanced() {
+        const left = height(root.left);
+        const right = height(root.right);
+        let dif;
+
+        if (left > right) dif = left - right
+        else dif = right - left;
+
+        if (dif <= 1) return true
+        else return false;
+    }
+
     return {
         root,
         insert,
@@ -231,6 +243,7 @@ const tree = (array) => {
         postOrder,
         height,
         depth,
+        isBalanced,
     }
 }
 
@@ -263,3 +276,10 @@ let b = a.find(8);
 console.log(a.height(b));
 
 console.log(a.depth(b));
+
+console.log(a.isBalanced());
+
+a.insert(11);
+a.insert(12);
+
+console.log(a.isBalanced());
