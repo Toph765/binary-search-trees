@@ -173,6 +173,21 @@ const tree = (array) => {
         return inOrderRec(callback, root);
     };
 
+    function postOrderRec(callback, root, postOrderArray = []) {
+        if (root === null) return null;
+
+        postOrderRec(callback, root.left, postOrderArray);
+        postOrderRec(callback, root.right, postOrderArray);
+        postOrderArray.push(root.data);
+
+        if (callback && typeof callback === "function") callback(postOrderArray)
+        else return postOrderArray;
+    };
+
+    function postOrder(callback) {
+        return postOrderRec(callback, root);
+    };
+
     return {
         root,
         insert,
@@ -181,6 +196,7 @@ const tree = (array) => {
         levelOrder,
         preOrder,
         inOrder,
+        postOrder,
     }
 }
 
@@ -205,3 +221,5 @@ console.log(a.levelOrder());
 console.log(a.preOrder())
 
 console.log(a.inOrder());
+
+console.log(a.postOrder());
