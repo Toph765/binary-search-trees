@@ -232,6 +232,12 @@ const tree = (array) => {
         else return false;
     }
 
+    function reBalance() {
+        const treeArray = levelOrder(mergeSort);
+        root = buildTree(treeArray);
+        return root;
+    }
+
     return {
         root,
         insert,
@@ -244,6 +250,7 @@ const tree = (array) => {
         height,
         depth,
         isBalanced,
+        reBalance,
     }
 }
 
@@ -285,4 +292,10 @@ a.insert(11);
 a.insert(12);
 
 console.log(a.isBalanced());
+
+a.root = a.reBalance();
+
+console.log(a.isBalanced());
+
+prettyPrint(a.root);
 
