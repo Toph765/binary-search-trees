@@ -188,6 +188,21 @@ const tree = (array) => {
         return postOrderRec(callback, root);
     };
 
+    function heightRec(node, count = 0) {
+        if (node === null) return count;
+        else {
+            if (node.left || node.right) count += 1;
+            let left = heightRec(node.left, count);
+            let right = heightRec(node.right, count);
+            if (left > right) return left
+            else return right;
+        };
+    };
+
+    function height(node) {
+        return heightRec(node);
+    }
+
     return {
         root,
         insert,
@@ -197,6 +212,7 @@ const tree = (array) => {
         preOrder,
         inOrder,
         postOrder,
+        height,
     }
 }
 
@@ -223,3 +239,7 @@ console.log(a.preOrder())
 console.log(a.inOrder());
 
 console.log(a.postOrder());
+
+let b = a.find(8);
+
+console.log(a.height(b));
