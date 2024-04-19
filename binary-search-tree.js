@@ -126,7 +126,7 @@ const tree = (array) => {
         }
 
         return qRoot;
-    }
+    };
 
     function levelOrder(callback = null) {
         let queue = [root];
@@ -137,18 +137,34 @@ const tree = (array) => {
             if (queue[0].left !== null) queue.push(queue[0].left);
             if (queue[0].right !== null) queue.push(queue[0].right);
             queue.shift();
-        }
+        };
 
         if (callback & typeof callback === "function") callback(levelOrderArray)
         else return levelOrderArray;
-    }
+    };
+
+    function preOrderRec(callback, root, preOrderArray = []) {
+        if (root === null) return null;
+
+        preOrderArray.push(root.data);
+        preOrderRec(callback, root.left, preOrderArray);
+        preOrderRec(callback, root.right, preOrderArray);
+
+        if (callback && typeof callback === "function") callback(preOrderArray)
+        else return preOrderArray;
+    };
+
+    function preOrder(callback) {
+        return preOrderRec(callback, root);
+    };
 
     return {
         root,
         insert,
         deleteItem,
         find,
-        levelOrder
+        levelOrder,
+        preOrder
     }
 }
 
@@ -169,3 +185,5 @@ console.log(a.find(67));
 prettyPrint(a.root);
 
 console.log(a.levelOrder());
+
+console.log(a.preOrder())
