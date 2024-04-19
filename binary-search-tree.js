@@ -203,6 +203,23 @@ const tree = (array) => {
         return heightRec(node);
     }
 
+    function depth(node) {
+        let count = 0;
+        let current = root;
+
+        while (current.data !== node.data) {
+            if (node.data < current.data) {
+                count += 1;
+                current = current.left;
+            }
+            else if (node.data > current.data) {
+                count += 1;
+                current = current.right;
+            }
+        }
+        return count;
+    }
+
     return {
         root,
         insert,
@@ -213,6 +230,7 @@ const tree = (array) => {
         inOrder,
         postOrder,
         height,
+        depth,
     }
 }
 
@@ -243,3 +261,5 @@ console.log(a.postOrder());
 let b = a.find(8);
 
 console.log(a.height(b));
+
+console.log(a.depth(b));
