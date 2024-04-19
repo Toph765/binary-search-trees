@@ -128,15 +128,27 @@ const tree = (array) => {
         return qRoot;
     }
 
-    /* function find(value) {
-        return findRec(root, value);
-    } */
+    function levelOrder(callback = null) {
+        let queue = [root];
+        let levelOrderArray = [];
+
+        while (queue.length !== 0) {
+            levelOrderArray.push(queue[0].data);
+            if (queue[0].left !== null) queue.push(queue[0].left);
+            if (queue[0].right !== null) queue.push(queue[0].right);
+            queue.shift();
+        }
+
+        if (callback & typeof callback === "function") callback(levelOrderArray)
+        else return levelOrderArray;
+    }
 
     return {
         root,
         insert,
         deleteItem,
-        find
+        find,
+        levelOrder
     }
 }
 
@@ -152,6 +164,8 @@ console.log(a.deleteItem(7))
 
 console.log(a.find(236));
 
-console.log(a.find(23));
+console.log(a.find(67));
 
 prettyPrint(a.root);
+
+console.log(a.levelOrder());
