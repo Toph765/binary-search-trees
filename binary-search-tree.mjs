@@ -42,7 +42,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
    }
  };
 
-const tree = (array) => {
+const Tree = (array) => {
     const treeArray = mergeSort(array);
 
     function buildTree(array) {
@@ -254,48 +254,5 @@ const tree = (array) => {
     }
 }
 
-function thisIsArray(array) {
-    return 'this is array: ' + array;
-}
-
-let a = tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-
-console.log(mergeSort([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]))
-
-console.log(a.insert(10));
-
-console.log(a.deleteItem(7))
-
-console.log(a.find(236));
-
-console.log(a.find(67));
-
-prettyPrint(a.root);
-
-console.log(a.levelOrder());
-
-console.log(a.preOrder())
-
-console.log(a.inOrder());
-
-console.log(a.postOrder(thisIsArray));
-
-let b = a.find(8);
-
-console.log(a.height(b));
-
-console.log(a.depth(b));
-
-console.log(a.isBalanced());
-
-a.insert(11);
-a.insert(12);
-
-console.log(a.isBalanced());
-
-a.root = a.reBalance();
-
-console.log(a.isBalanced());
-
-prettyPrint(a.root);
+export default Tree;
 
